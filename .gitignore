@@ -1,0 +1,8 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/GraphQLVue/.vs/GraphQLVue
+/GraphQLVue/GraphQLVue/bin
+/GraphQLVue/GraphQLVue/obj
