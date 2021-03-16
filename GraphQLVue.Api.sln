@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31105.61
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphQLVue.Api", "GraphQLVue.Api\GraphQLVue.Api.csproj", "{09D43647-2939-4894-AB93-EF70ADEE23D2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQLVue.Web", "GraphQLVue.Web\GraphQLVue.Web.csproj", "{7721A14A-B8F7-4D97-8B64-7CC94F9A9625}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{09D43647-2939-4894-AB93-EF70ADEE23D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09D43647-2939-4894-AB93-EF70ADEE23D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09D43647-2939-4894-AB93-EF70ADEE23D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7721A14A-B8F7-4D97-8B64-7CC94F9A9625}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7721A14A-B8F7-4D97-8B64-7CC94F9A9625}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7721A14A-B8F7-4D97-8B64-7CC94F9A9625}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7721A14A-B8F7-4D97-8B64-7CC94F9A9625}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

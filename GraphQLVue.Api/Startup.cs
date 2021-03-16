@@ -47,6 +47,7 @@ namespace GraphQLVue.Api
             .AddSystemTextJson()
             .AddUserContextBuilder(httpContext => new GraphQLUserContext { User = httpContext.User });
 
+            services.AddCors();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -76,6 +77,8 @@ namespace GraphQLVue.Api
             // add http for Schema at default url /graphql
             app.UseGraphQL<ISchema>();
             app.UseGraphQLPlayground(new GraphQLPlaygroundOptions());
+
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
         }
     }
 }

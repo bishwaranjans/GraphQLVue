@@ -11,3 +11,5 @@
 /GraphQLVue.Api/GraphQLVue.Api/obj
 /GraphQLVue.Api/bin/Debug/net5.0
 /GraphQLVue.Api/obj
+/GraphQLVue.Web/bin/Debug
+/GraphQLVue.Web/obj
