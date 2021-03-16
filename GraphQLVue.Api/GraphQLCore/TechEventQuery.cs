@@ -20,7 +20,7 @@ namespace GraphQLVue.Api.GraphQLCore
                     return await repository.GetTechEventsAsync();
                 });
 
-            FieldAsync<ListGraphType<TechEventInfoType>>(
+            FieldAsync<TechEventInfoType>(
                 "event",
                 arguments: new QueryArguments(
                     new QueryArgument<IntGraphType> { Name = "eventId" }),
