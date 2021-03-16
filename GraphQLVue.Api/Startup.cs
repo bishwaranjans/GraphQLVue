@@ -1,15 +1,18 @@
+using GraphQL;
+using GraphQL.Server;
+using GraphQL.Server.Ui.Playground;
+using GraphQL.Types;
+using GraphQLVue.Api.GraphQLCore;
+using GraphQLVue.Api.Infrastucture.DBContext;
+using GraphQLVue.Api.Infrastucture.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GraphQLVue.Api
 {
@@ -22,9 +25,27 @@ namespace GraphQLVue.Api
 
         public IConfiguration Configuration { get; }
 
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLogging(builder => builder.AddConsole());
+            services.AddHttpContextAccessor();
+
+            services.AddDbContext<TechEventDBContext>(opt => opt.UseInMemoryDatabase(databaseName: "TechEventDB"), ServiceLifetime.Singleton);
+            services.AddSingleton<ITechEventRepository, TechEventRepository>();
+
+            services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
+            services.AddSingleton<ISchema, TechEventSchema>();
+            services.AddGraphQL((options, provider) =>
+            {
+                options.EnableMetrics = true;
+            })
+            .AddGraphTypes(typeof(TechEventSchema))
+            .AddDataLoader()
+            .AddErrorInfoProvider(opt => opt.ExposeExceptionStackTrace = true)
+            .AddSystemTextJson()
+            .AddUserContextBuilder(httpContext => new GraphQLUserContext { User = httpContext.User });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -51,6 +72,10 @@ namespace GraphQLVue.Api
             {
                 endpoints.MapControllers();
             });
+
+            // add http for Schema at default url /graphql
+            app.UseGraphQL<ISchema>();
+            app.UseGraphQLPlayground(new GraphQLPlaygroundOptions());
         }
     }
 }
