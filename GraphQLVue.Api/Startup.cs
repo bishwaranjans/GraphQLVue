@@ -18,6 +18,8 @@ namespace GraphQLVue.Api
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -29,6 +31,15 @@ namespace GraphQLVue.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                                  });
+            });
+
             services.AddLogging(builder => builder.AddConsole());
             services.AddHttpContextAccessor();
 
@@ -47,7 +58,6 @@ namespace GraphQLVue.Api
             .AddSystemTextJson()
             .AddUserContextBuilder(httpContext => new GraphQLUserContext { User = httpContext.User });
 
-            services.AddCors();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -74,11 +84,11 @@ namespace GraphQLVue.Api
                 endpoints.MapControllers();
             });
 
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+
             // add http for Schema at default url /graphql
             app.UseGraphQL<ISchema>();
             app.UseGraphQLPlayground(new GraphQLPlaygroundOptions());
-
-            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
         }
     }
 }
