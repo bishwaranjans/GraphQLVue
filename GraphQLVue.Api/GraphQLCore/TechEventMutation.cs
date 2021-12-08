@@ -3,10 +3,6 @@ using GraphQL.Types;
 using GraphQLVue.Api.Infrastucture.DBContext;
 using GraphQLVue.Api.Infrastucture.Repositories;
 using GraphQLVue.Api.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GraphQLVue.Api.GraphQLCore
 {
